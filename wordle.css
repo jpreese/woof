@@ -1,0 +1,237 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+    background-color: #121213;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+header {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #3a3a3c;
+    padding-bottom: 12px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+}
+
+/* Message */
+.message {
+    height: 24px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    transition: opacity 0.3s;
+}
+
+.message.error {
+    color: #ca4754;
+}
+
+.message.success {
+    color: #6aaa64;
+}
+
+/* Board */
+.board {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    gap: 5px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+}
+
+.tile {
+    width: 62px;
+    height: 62px;
+    border: 2px solid #3a3a3c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: transform 0.1s;
+}
+
+.tile.filled {
+    border-color: #565758;
+    animation: pop 0.1s ease-in-out;
+}
+
+.tile.reveal {
+    animation: flip 0.5s ease forwards;
+}
+
+.tile.correct {
+    background-color: #6aaa64;
+    border-color: #6aaa64;
+}
+
+.tile.present {
+    background-color: #c9b458;
+    border-color: #c9b458;
+}
+
+.tile.absent {
+    background-color: #3a3a3c;
+    border-color: #3a3a3c;
+}
+
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes flip {
+    0% { transform: rotateX(0); }
+    50% { transform: rotateX(90deg); }
+    100% { transform: rotateX(0); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+.row.shake {
+    animation: shake 0.5s ease;
+}
+
+@keyframes bounce {
+    0%, 20% { transform: translateY(0); }
+    40% { transform: translateY(-30px); }
+    50% { transform: translateY(5px); }
+    60% { transform: translateY(-15px); }
+    80% { transform: translateY(2px); }
+    100% { transform: translateY(0); }
+}
+
+.tile.win {
+    animation: bounce 1s ease;
+}
+
+/* Keyboard */
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-width: 484px;
+}
+
+.keyboard-row {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.keyboard button {
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0;
+    height: 58px;
+    min-width: 43px;
+    border: none;
+    border-radius: 4px;
+    background-color: #818384;
+    color: #ffffff;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.1s;
+    user-select: none;
+}
+
+.keyboard button:hover {
+    opacity: 0.9;
+}
+
+.keyboard button.wide {
+    min-width: 65px;
+    font-size: 0.75rem;
+}
+
+.keyboard button.correct {
+    background-color: #6aaa64;
+}
+
+.keyboard button.present {
+    background-color: #c9b458;
+}
+
+.keyboard button.absent {
+    background-color: #3a3a3c;
+}
+
+/* Play Again Button */
+.play-again {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    background-color: #6aaa64;
+    color: #ffffff;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: opacity 0.3s;
+}
+
+.play-again:hover {
+    opacity: 0.9;
+}
+
+.play-again.hidden {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+    .tile {
+        width: 52px;
+        height: 52px;
+        font-size: 1.75rem;
+    }
+    
+    .keyboard button {
+        height: 50px;
+        min-width: 32px;
+        font-size: 0.75rem;
+    }
+    
+    .keyboard button.wide {
+        min-width: 50px;
+        font-size: 0.65rem;
+    }
+}
